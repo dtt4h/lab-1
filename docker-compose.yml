@@ -19,6 +19,4 @@ services:
       dockerfile: Dockerfile.backend
     ports:
       - "3001:3001"
-    volumes:
-      - ./db.json:/app/db.json
     restart: unless-stopped
