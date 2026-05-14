@@ -9,6 +9,9 @@ RUN npm install
 # Копируем db.json
 COPY db.json ./
 
+# Даём права на запись для db.json
+RUN chown -R node:node /app && chmod -R 755 /app
+
 # Запускаем json-server через npm run server
 EXPOSE 3001
 CMD ["npm", "run", "server"]
