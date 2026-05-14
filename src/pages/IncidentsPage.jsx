@@ -19,8 +19,16 @@ function IncidentsPage() {
 
   async function deleteIncident(id) {
     if (window.confirm("Удалить этот инцидент?")) {
-      await api.delete(`/incidents/${id}`);
-      fetchIncidents();
+      try {
+        await api.delete(`/incidents/${id}`);
+        // Оптимистичное обновление: удаляем из состояния сразу
+        setIncidents((prev) => prev.filter((item) => item.id !== id));
+      } catch (err) {
+        console.error("Ошибка при удалении:", err);
+        alert("Не удалось удалить инцидент");
+        // Возвращаем данные с сервера при ошибке
+        await fetchIncidents();
+      }
     }
   }
 
