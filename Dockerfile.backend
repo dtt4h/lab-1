@@ -1,0 +1,13 @@
+FROM node:20-alpine
+
+WORKDIR /app
+
+# Устанавливаем json-server локально
+RUN npm install json-server
+
+# Копируем db.json
+COPY db.json ./
+
+# Запускаем json-server
+EXPOSE 3001
+CMD ["npx", "--yes", "json-server", "--watch", "db.json", "--port", "3001"]
